@@ -7,7 +7,7 @@
 	<groupId>de.smahoo.jwave</groupId>
 	<name>JWave library</name>
 	<artifactId>jwave-library</artifactId>
-	<version>0.3.80</version>	
+	<version>0.3.82 </version>
 	<description>Java based Z-Wave communication library</description>
 	
 	

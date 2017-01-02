@@ -1,5 +1,6 @@
 package de.smahoo.jwave.node;
 
+import java.util.Collection;
 import java.util.List;
 
 import de.smahoo.jwave.cmd.*;
@@ -66,8 +67,14 @@ public class JWaveNodeFactory {
 	public void setNodeSecurity(JWaveNode node, int security){
 		
 	}
-	
 
+	public static void assignCommandClass(JWaveNode node, JWaveCommandClass cmdClass){
+		node.cmdClasses.add(cmdClass);
+	}
+
+	public static void assignCommandClasses(JWaveNode node, Collection<JWaveCommandClass> cmdClassList){
+		node.cmdClasses.addAll(cmdClassList);
+	}
 	
 	public synchronized void assignNodeCmd(JWaveNode node, JWaveNodeCommand cmd){
 		if (node == null){
