@@ -68,14 +68,26 @@ public class JWaveNodeFactory {
 		
 	}
 
+
 	public static void assignCommandClass(JWaveNode node, JWaveCommandClass cmdClass){
 		node.cmdClasses.add(cmdClass);
+		if (cmdClass.getKey() == 0x84) { // whenever COMMAND_CLASS_WAKEUP will be added with this method
+			// set sleepmode to sleep
+			node.sleepMode = JWaveNodeSleepMode.SLEEP_MODE_SLEEPING;
+		}
 	}
 
 	public static void assignCommandClasses(JWaveNode node, Collection<JWaveCommandClass> cmdClassList){
 		node.cmdClasses.addAll(cmdClassList);
+
 	}
-	
+
+	public static void assignManufactureSpecificDetails(JWaveNode node, int manufacturerId, int productTypeId, int productId){
+		node.manufactureId = manufacturerId;
+		node.productTypeId = productTypeId;
+		node.productId = productId;
+	}
+
 	public synchronized void assignNodeCmd(JWaveNode node, JWaveNodeCommand cmd){
 		if (node == null){
 			return;
