@@ -444,15 +444,17 @@ public class JWaveNodeCommunicator {
 		
 		if (cmdToSendBuffer.isEmpty()) {			
 			if (securityProcessor.isCmdBufferEmpty()){
-				if (mode == NODE_MODE_NORMAL_INTERVIEW){			
-					if (this.currentInterviewOptions.isRequestManufactureDetails()){
-						if (getNode().hasManufactureDetails()){
-							mode = NODE_MODE_NORMAL_INTERVIEW_FINISHED;			
+				if (mode == NODE_MODE_NORMAL_INTERVIEW){
+					if (this.currentInterviewOptions != null) {
+						if (this.currentInterviewOptions.isRequestManufactureDetails()) {
+							if (getNode().hasManufactureDetails()) {
+								mode = NODE_MODE_NORMAL_INTERVIEW_FINISHED;
+								node.dispatchNodeEvent(new JWaveNodeEvent(JWaveEventType.NODE_EVENT_INTERVIEW_FINISHED, node));
+							}
+						} else {
+							mode = NODE_MODE_NORMAL_INTERVIEW_FINISHED;
 							node.dispatchNodeEvent(new JWaveNodeEvent(JWaveEventType.NODE_EVENT_INTERVIEW_FINISHED, node));
 						}
-					} else {
-						mode = NODE_MODE_NORMAL_INTERVIEW_FINISHED;			
-						node.dispatchNodeEvent(new JWaveNodeEvent(JWaveEventType.NODE_EVENT_INTERVIEW_FINISHED, node));
 					}
 				}
 			 
