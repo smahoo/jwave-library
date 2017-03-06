@@ -41,7 +41,7 @@ import de.smahoo.jwave.utils.xml.XmlUtils;
 public class JWaveController {
 
 	// consts
-	private static final String VERSION="0.9.83";  // Main.Sub.Build
+	private static final String VERSION="0.9.84";  // Main.Sub.Build
 	private static final String FILE_COMMAND_CLASS_SPECIFICATIONS = "cmd_classes.xml";
 	private static final long DEFAULT_CONTROLLER_MODE_TIMEOUT = 300000; // 5 minutes in milliseconds
 	
