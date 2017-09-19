@@ -321,8 +321,13 @@ public class JWaveDatagramTransceiver {
 	       				onSerialIOError(exc);
 	       			}
 	            } catch (InterruptedException exc){
-	            	// 
-	            }
+	            	// Do noting
+	            } catch (Exception exc){
+	            	// Any other exception
+					 JWaveController.log(LogTag.ERROR,"Exception during IO-read : "+exc.getMessage(),exc);
+
+				}
+
 	       		
 	       	}	
 	       	

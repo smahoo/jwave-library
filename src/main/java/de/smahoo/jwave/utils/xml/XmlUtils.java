@@ -1,13 +1,6 @@
 package de.smahoo.jwave.utils.xml;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.nio.charset.Charset;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -35,26 +28,28 @@ import org.xml.sax.SAXException;
 public class XmlUtils {
 	
 	
-	static public Document loadXml(File file) throws IOException{		
-      
-		
-        	BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
+	static public Document loadXml(File file) throws IOException{
+        	return loadXml(new FileReader(file));
+	}
 
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            
-            br.close();
-            String everything = sb.toString();
-            try {
-            	return XmlUtils.parseDoc(everything);
-            } catch (Exception exc){
-            	throw new IOException("Unable to load xml file '"+file.getAbsolutePath()+".",exc);
-            }
+	static public Document loadXml(Reader reader) throws IOException{
+		BufferedReader br = new BufferedReader(reader);
+		StringBuilder sb = new StringBuilder();
+		String line = br.readLine();
+
+		while (line != null) {
+			sb.append(line);
+			sb.append("\n");
+			line = br.readLine();
+		}
+
+		br.close();
+		String everything = sb.toString();
+		try {
+			return XmlUtils.parseDoc(everything);
+		} catch (Exception exc){
+			throw new IOException("Error during XML parsing.",exc);
+		}
 	}
 	
 	static public void saveXml(File file, Document doc) throws IOException, XmlConvertionException{

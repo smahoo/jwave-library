@@ -56,7 +56,9 @@ public class JWaveCommandClassSpecification {
 			throw new IOException("Unable to generate command classes from given specification file '"+filename+"'."+exc.getMessage(),exc);
 		}
 	}
-	
+
+
+
 	public Collection<JWaveGenericDeviceType> getGenericDeviceTypes(){		
 		return deviceTypes.values();
 	}

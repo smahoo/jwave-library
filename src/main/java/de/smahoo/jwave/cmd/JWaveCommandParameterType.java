@@ -86,21 +86,21 @@ public enum JWaveCommandParameterType {
 	}
 	
 	public static int toInteger(byte[] bytes) {
-		
+
 		if ( bytes.length == 4){
 			return   bytes[3] & 0xFF |
 		            (bytes[2] & 0xFF) << 8 |
 		            (bytes[1] & 0xFF) << 16 |
-		            (bytes[0] & 0xFF) << 24;	
+		            (bytes[0] & 0xFF) << 24;
 		}
 		if ( bytes.length == 3){
 			return   bytes[2] & 0xFF |
 		            (bytes[1] & 0xFF) << 8 |
-		            (bytes[0] & 0xFF) << 16;		            	
+		            (bytes[0] & 0xFF) << 16;
 		}
 		if ( bytes.length == 2){
 			return   bytes[1] & 0xFF |
-		            (bytes[0] & 0xFF) << 8;		            		            	
+		            (bytes[0] & 0xFF) << 8;
 		}
 		return bytes[0] & 0xFF;
 		 

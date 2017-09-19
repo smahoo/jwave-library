@@ -41,7 +41,7 @@ import de.smahoo.jwave.utils.xml.XmlUtils;
 public class JWaveController {
 
 	// consts
-	private static final String VERSION="0.9.0";  // Main.Sub.Build
+	private static final String VERSION="0.9.84";  // Main.Sub.Build
 	private static final String FILE_COMMAND_CLASS_SPECIFICATIONS = "cmd_classes.xml";
 	private static final long DEFAULT_CONTROLLER_MODE_TIMEOUT = 300000; // 5 minutes in milliseconds
 	
@@ -652,7 +652,7 @@ public class JWaveController {
 		return null;
 	}
 	
-	public String getJWaveChipVersion(){
+	public String getZWaveChipVersion(){
 		return zwChip;
 	}
 	
@@ -876,20 +876,27 @@ public class JWaveController {
 					transceiver.send(JWaveDatagramFactory.generateGetNodeProtocolInfoRequest(node.getNodeId()));
 					
 				} else {
-					cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;
+					setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 					
 					try {
 						setConfiguration();
 					} catch (Exception exc){
 						JWaveController.log(LogTag.ERROR,exc.getMessage(),exc);
 					}
-					cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;
+					setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 					dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_INIT_COMPLETED, this));
 					
 				}
 			}
 		}
 		
+	}
+
+	private void setControllerMode(JWaveControllerMode mode){
+		if (cntrlMode != mode) {
+			JWaveController.log(LogTag.DEBUG, "Setting controller mode to " + mode.name());
+		}
+		cntrlMode = mode;
 	}
 	
 	protected void setSerialApiCapabilities(JWaveDatagram datagram){
@@ -926,11 +933,11 @@ public class JWaveController {
 			switch (payload[1]){
 			case 01: //remove mode
 			case 07: //remove mode if controller was already in remove mode)			
-				cntrlMode = JWaveControllerMode.CNTRL_MODE_EXCLUSION;
+				setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 				dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_REMOVE_NODE_FROM_NETWORK_START, this));
 				break;
-			case 06:  				
-				cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;
+			case 06:
+				setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 				dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_REMOVE_NODE_FROM_NETWORK_CANCELED, this));
 				break;
 			}
@@ -953,7 +960,7 @@ public class JWaveController {
 				stopModeTimoutTimer();
 				//transceiver.send(JWaveDatagramFactory.generateRemoveNodeFromNetworkRequest((byte)0x05, transceiver.generateFuncId()));
 				//transceiver.send(JWaveDatagramFactory.generateRemoveNodeFromNetworkCompletedMessage());
-				cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;		
+				setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 				dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_REMOVE_NODE_FROM_NETWORK_SUCCESS, this));
 				
 			}
@@ -975,7 +982,7 @@ public class JWaveController {
 					break;
 				case 0x06:  // add mode canceled 
 					if (cntrlMode != JWaveControllerMode.CNTRL_MODE_NORMAL){
-						cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;					
+						setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 						dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_ADD_NODE_TO_NETWORK_CANCELED, this));
 					}				
 					break;	
@@ -983,7 +990,7 @@ public class JWaveController {
 					if (cntrlMode != JWaveControllerMode.CNTRL_MODE_NORMAL){
 						stopModeTimoutTimer();
 						transceiver.send(JWaveDatagramFactory.generateAddNodeToNetworkRequest((byte)0x05, transceiver.generateFuncId()));
-						cntrlMode = JWaveControllerMode.CNTRL_MODE_NORMAL;
+						setControllerMode(JWaveControllerMode.CNTRL_MODE_NORMAL);
 						if (this.ncToAdd != null){	
 							dispatchEvent(new JWaveControlEvent(JWaveEventType.CNTRL_EVENT_ADD_NODE_TO_NETWORK_SUCCESS, this));
 							addNodeCommunicator(ncToAdd);	

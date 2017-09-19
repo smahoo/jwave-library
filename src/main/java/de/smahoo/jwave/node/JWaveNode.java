@@ -38,6 +38,7 @@ public class JWaveNode {
 	
 	
 	protected JWaveNode(){
+		sleepMode = JWaveNodeSleepMode.SLEEP_MODE_NONE;
 		cmdClasses = new ArrayList<JWaveCommandClass>();
 		secSuppCmdClasses = new ArrayList<JWaveCommandClass>();
 		eventListeners = new ArrayList<JWaveNodeEventListener>();
