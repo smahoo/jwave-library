@@ -878,7 +878,7 @@ public class TestJWaveReportGeneration {
 	@Test
 	public void testNodeCmd_ReportDoorLockConfiguration(){
 		assertNotNull(factory);
-		
+
 
 		JWaveNodeCommand nodeCmd = null;
 		try {
@@ -886,27 +886,63 @@ public class TestJWaveReportGeneration {
 		} catch (Exception exc){
 			exc.printStackTrace();
 		}
-	
+
 		assertNotNull(nodeCmd);
-		
-				
+
+
 		assertEquals(nodeCmd.getCommandClass().getKey(),0x62);
-		
+
 		JWaveReport report = null;
 		try {
 			report = JWaveReportFactory.generateReport(nodeCmd);
 		} catch (Exception exc){
 			exc.printStackTrace();
 		}
-	
+
 		assertNotNull(report);
-		
+
 		assertTrue(report instanceof JWaveReportDoorLockConfiguration);
 		JWaveReportDoorLockConfiguration confRep = (JWaveReportDoorLockConfiguration)report;
-		
+
 		assertEquals(confRep.getOperationType(), OperationType.OT_TIMED);
-	
-		
+
+
 	}
+
+	@Test
+	public void testNodeCmd_ReportSensorMultilevel_2ByteTemperature(){
+		assertNotNull(factory);
+
+
+		JWaveNodeCommand nodeCmd = null;
+		try {
+			nodeCmd = factory.generateNodeCmd(ByteArrayGeneration.generateByteArray("31 05 01 22 ff ed c4"));
+		} catch (Exception exc){
+			exc.printStackTrace();
+		}
+
+		assertNotNull(nodeCmd);
+
+
+//		assertEquals(nodeCmd.getCommandClass().getKey(),0x62);
+
+		JWaveReport report = null;
+		try {
+			report = JWaveReportFactory.generateReport(nodeCmd);
+		} catch (Exception exc){
+			exc.printStackTrace();
+		}
+
+		assertNotNull(report);
+
+		assertTrue(report instanceof JWaveReportSensorMultilevel);
+		JWaveReportSensorMultilevel multiRep = (JWaveReportSensorMultilevel)report;
+
+
+
+	}
+
+
+
 	
 }

@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import de.smahoo.jwave.JWaveController;
 import de.smahoo.jwave.io.JWaveConnection;
 import de.smahoo.jwave.io.JWaveDatagramFactory;
 import de.smahoo.jwave.utils.ByteArrayGeneration;
+import de.smahoo.jwave.utils.logger.LogTag;
 
 /**
  * MockJWaveConnection emulates input and output streams to simulate a serial z-wave controller. 
@@ -199,6 +201,7 @@ public class JWaveMockedConnection implements JWaveConnection {
 				return;
 			}
 			String currStream = streamsToSend.remove(0);
+			JWaveController.log(LogTag.DEBUG, "sending mock response: "+currStream);
 			currBytesToSend = generateIntArray(currStream);
 			currentByteIndex = 0;
 		}
@@ -280,7 +283,7 @@ public class JWaveMockedConnection implements JWaveConnection {
 	
 	protected void evaluateMessage(){
 		String message = ByteArrayGeneration.toHexString(inputBuffer, 0,bufferSize);
-		//System.out.println("received message : " +message);
+		System.out.println("received message : " +message);
 		synchronized(this){
 			sendingAck = true;
 		}		

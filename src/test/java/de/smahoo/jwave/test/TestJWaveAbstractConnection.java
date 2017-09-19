@@ -102,14 +102,14 @@ public abstract class TestJWaveAbstractConnection {
 		long startMillies = new Date().getTime();
 		long currentMillies = new Date().getTime();
 		while ((currentMillies - startMillies) < timeout){
-			Thread.sleep(10);			
-			synchronized(cntrl){
+			Thread.sleep(10);
+		//	synchronized(cntrl){
 				if (cntrl.getControllerMode() == mode){
 					return true;
-				}				
+				}
 			}
 			currentMillies = new Date().getTime();
-		}
+		//}
 		return false;
 	}
 	
