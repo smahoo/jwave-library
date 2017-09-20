@@ -35,10 +35,15 @@
 
 The Z-Wave communications between Z-Wave nodes is based on Command Classes which define the way of data exchange. All Command Classes are stored in 
 a huge specification file based on XML. Within the library, no command class is hardly coded. Thus, during the creation of the Z-Wave Controller, the Z-Wave Specification need to be passed.
+You can get the specification by either including the project [specification](https://github.com/smahoo/jwave-specification) and make use of:
 
-	
+
+    JWaveCommandClassSpecification spec = JWaveSpecification.loadDefaultSpecification();    
+    JWaveController controller = new JWaveController(spec);
+    
+or you can use your own file by :
+  
 		JWaveCommandClassSpecification spec = spec = new JWaveCommandClassSpecification(path);
-
 		JWaveController controller = new JWaveController(spec);
 
 
