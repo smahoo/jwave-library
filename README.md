@@ -7,7 +7,7 @@
 
     ===================================================================================================================================================================                                                
           
-#Content
+# Content
 
 * How to build
 * How to use
@@ -17,21 +17,21 @@
   * Receiving commands
 
 
-#How to build
+# How to build
 
-##Prequisites
+## Prequisites
 
 * Java 1.8 or higher
 * Maven
 * Z-Wave controller
 
-##Build with Maven
+## Build with Maven
 
     mvn clean install
 
-#How to use
+# How to use
 
-##Initialization
+## Initialization
 
 The Z-Wave communications between Z-Wave nodes is based on Command Classes which define the way of data exchange. All Command Classes are stored in 
 a huge specification file based on XML. Within the library, no command class is hardly coded. Thus, during the creation of the Z-Wave Controller, the Z-Wave Specification need to be passed.
@@ -88,7 +88,7 @@ this library and need to be developed addioionally. Afterwards, the initializati
 
 
 
-##Adding a node/device
+## Adding a node/device
 
 
 	controller.setInclusionMode() 
@@ -104,7 +104,7 @@ When a new device was added, information about manufacture and versions of the s
 The node (new device) is ready for use, when the event with the eventType NODE_EVENT_INTERVIEW_FINISHED was received. 
 
 
-##Sending commands
+## Sending commands
 
 
 Assumed a device supporting the command class switch binary was added, turning the device on will look like this.
@@ -125,7 +125,7 @@ Depending on the Command Class specification that was loaded at the beginning, t
 	}
 
 
-##Receiving Commands
+## Receiving Commands
 
 
 Add a JWaveNodeEventListener to the node for handling received commands.
