@@ -6,24 +6,19 @@
 	<modelVersion>4.0.0</modelVersion>	
 	<groupId>de.smahoo.jwave</groupId>
 	<name>JWave library</name>
-	<artifactId>jwave-library</artifactId>
+	<artifactId>libjwave</artifactId>
 	<version>0.3.82</version>
 	<description>Java based Z-Wave communication library</description>
-	
-	
-	
+			
 	<dependencies>
 		<dependency>
     		<groupId>junit</groupId>
     		<artifactId>junit</artifactId>
    			<version>4.12</version>
-		</dependency>
-		
+		</dependency>		
 	</dependencies>
-
 	
-	<build>	
-	
+	<build>		
 		<plugins>
 			<!-- Set a JDK compiler level -->
 			<plugin>
@@ -35,8 +30,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-		</plugins>
-		
+		</plugins>		
 	</build>
 	
 	
