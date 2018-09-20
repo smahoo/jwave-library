@@ -28,6 +28,10 @@
 ## Build with Maven
 
     mvn clean install
+    
+The build process runs all tests. Most of the tests need the Z-Wave command class specification file. If you do not have that file,
+please build the library by typing ```mvn clean install -DskipTests```. If you have that file, please copy it into the folder ```cnf```
+and rename it to ```cmd_classes.xml```. Due to legal issues, that file can't be provided as resource. 
 
 # How to use
 
