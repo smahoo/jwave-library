@@ -31,7 +31,8 @@ public abstract class TestJWaveAbstractConnection {
 		String sep = System.getProperty("file.separator");
 		String filename = System.getProperty("user.dir")+sep+"cnf"+sep+"cmd_classes.xml";
 		JWaveCommandClassSpecification spec = null;
-		spec = new JWaveCommandClassSpecification(filename);	
+		spec = new JWaveCommandClassSpecification(filename);
+
 		
 		factory = new JWaveNodeCommandFactory(spec);
 		nodeFactory = new JWaveNodeFactory(spec);

@@ -1,0 +1,1 @@
+Please copy the official Z-Wave command class specification file here and rename it to ```cmd_classes.xml``` for running the tests. 
